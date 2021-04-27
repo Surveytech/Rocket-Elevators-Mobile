@@ -1,0 +1,12 @@
+{
+  "name": "Rocket_Elevators-Mobile",
+  "displayName": "Rocket_Elevators-Mobile",
+  "expo": {
+    "name": "Rocket_Elevators-Mobile",
+    "slug": "Rocket_Elevators-Mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

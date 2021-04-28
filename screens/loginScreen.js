@@ -10,6 +10,7 @@ import image from '../images/Autostadt.jpg';
 import axios from 'axios';
 
 const LoginScreen = ({navigation}) => {
+
     return (
         <SafeAreaView style={styles.container}>
           <ImageBackground source={image} style={styles.image}>
@@ -26,6 +27,7 @@ const LoginScreen = ({navigation}) => {
         </SafeAreaView>
       );
     };
+    
   const styles = StyleSheet.create({
     container: {
         flex: 1,

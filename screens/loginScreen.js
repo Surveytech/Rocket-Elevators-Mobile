@@ -1,6 +1,6 @@
 
 import 'react-native-gesture-handler';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -9,7 +9,30 @@ import image from '../images/Autostadt.jpg';
 
 import axios from 'axios';
 
+const APIKit = axios.create({
+  baseURL: 'https://csl-restapiweek-9.azurewebsites.net/Employees',
+});
+
+export const setClientToken = token => {
+  APIKit.interceptors.request.use(function(config) {
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  });
+};
+
 const LoginScreen = ({navigation}) => {
+
+    // const [email, setEmail] = useState('');
+    // const [LoggedIn, isLogged] = useState(false);
+
+    // const hasErrors = () =>{
+    //   return !email.includes('@');
+    // }
+    // const submitEmail = () => {
+    //   console.log(email);
+    //   return Login()
+    // }
+
     return (
         <SafeAreaView style={styles.container}>
           <ImageBackground source={image} style={styles.image}>
@@ -26,6 +49,7 @@ const LoginScreen = ({navigation}) => {
         </SafeAreaView>
       );
     };
+    
   const styles = StyleSheet.create({
     container: {
         flex: 1,

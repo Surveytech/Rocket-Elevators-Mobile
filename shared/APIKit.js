@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create axios client, pre-configured with baseURL
 let APIKit = axios.create({
-  baseURL: 'https://csl-restapiweek-9.azurewebsites.net/Employees',
+  baseURL: 'https://csl-restapiweek-9.azurewebsites.net/Employees/${email}',
   timeout: 10000,
 });
 

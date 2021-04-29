@@ -9,6 +9,8 @@ import { setStatusBarStyle, StatusBar } from 'expo-status-bar';
 import image from './images/background.jpg';
 
 import LoginScreen from './screens/loginScreen'
+import LoginView from './screens/loginView'
+import LoginEmail from './screens/loginEmail'
 import HomeScreen from './screens/homeScreen'
 import StatusScreen from './screens/statusScreen'
 

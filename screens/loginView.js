@@ -9,10 +9,10 @@ import {
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import APIKit, {setClientToken} from '../../../shared/APIKit';
+import APIKit, {setClientToken} from '../shared/APIKit';
 
 const initialState = {
-  username: '',
+  email: '',
   password: '',
   errors: {},
   isAuthorized: false,
@@ -24,8 +24,8 @@ class Login extends Component {
 
   componentWillUnmount() {}
 
-  onUsernameChange = username => {
-    this.setState({username});
+  onEmailChange = email => {
+    this.setState({email});
   };
 
   onPasswordChange = password => {
@@ -33,8 +33,8 @@ class Login extends Component {
   };
 
   onPressLogin() {
-    const {username, password} = this.state;
-    const payload = {username, password};
+    const {email, password} = this.state;
+    const payload = {email, password};
     console.log(payload);
 
     const onSuccess = ({data}) => {
@@ -102,28 +102,28 @@ class Login extends Component {
         {!this.state.isAuthorized ? <View>
           <View style={styles.logotypeContainer}>
             <Image
-              source={require('../../../assets/images/logo/touchbase-logo.png')}
+              source={require('../images/RE_transp.png')}
               style={styles.logotype}
             />
           </View>
 
           <TextInput
             style={styles.input}
-            value={this.state.username}
+            value={this.state.email}
             maxLength={256}
-            placeholder="Enter username..."
+            placeholder="Enter email..."
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
             onSubmitEditing={event =>
               this.passwordInput.wrappedInstance.focus()
             }
-            onChangeText={this.onUsernameChange}
+            onChangeText={this.onEmailChange}
             underlineColorAndroid="transparent"
             placeholderTextColor="#999"
           />
 
-          {this.getErrorMessageByField('username')}
+          {this.getErrorMessageByField('email')}
 
           <TextInput
             ref={node => {

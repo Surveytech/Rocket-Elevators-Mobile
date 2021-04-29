@@ -9,46 +9,74 @@ import image from '../images/Autostadt.jpg';
 
 import axios from 'axios';
 
-const APIKit = axios.create({
-  baseURL: 'https://csl-restapiweek-9.azurewebsites.net/Employees',
-});
+// const APIKit = axios.create({
+//   baseURL: 'https://csl-restapiweek-9.azurewebsites.net/Employees',
+// });
 
-export const setClientToken = token => {
-  APIKit.interceptors.request.use(function(config) {
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  });
-};
+// export const setClientToken = token => {
+//   APIKit.interceptors.request.use(function(config) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//     return config;
+//   });
+// };
 
 const LoginScreen = ({navigation}) => {
 
-    // const [email, setEmail] = useState('');
-    // const [LoggedIn, isLogged] = useState(false);
+    const [email, setEmail] = useState({ value: '', error: ''})
+    var emailemployee = email.value;
 
-    // const hasErrors = () =>{
-    //   return !email.includes('@');
-    // }
-    // const submitEmail = () => {
-    //   console.log(email);
-    //   return Login()
-    // }
+    const checkEmail =() => {
 
+      let employee_email = email.value;
+      if(employee_email == "") return alert("Email is required");
+
+      return axios.get(`https://csl-restapiweek-9.azurewebsites.net/Employees/${employee_email}`)
+        .then(function(response){
+          const statusCode = response.status;
+          if (statusCode == 200) {
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Home'}],
+            })
+          }
+        })
+        .catch(function (error) {
+          console.log('This ${employee_email} is incorrect.');
+          alert('${employee_email} is unavailable, please enter a valid email.');
+        })
+        .then(function(){
+
+        });
+    }
     return (
         <SafeAreaView style={styles.container}>
           <ImageBackground source={image} style={styles.image}>
               <View>
                   <Image style={styles.logo} source={require('../images/RE_transp.png')}/>
               </View>
-            <TouchableOpacity 
+              <TextInput
+                Label="Email"
+                returnKeyType="next"
+                value={email.value}
+                onChangeText={(text) => setEmail({value: text, error: ''})}
+                error={!!email.error}
+                errorText={email.error}
+                autoCapitalize="none"
+                autoCompleteType="email"
+                textContentType="emailAddress"
+                keyboardType="email-address"
+                required
+              />
+            <Button 
+              mode="contained"
               style={styles.button}
-              onPress={() => navigation.navigate('Main')}
-              >
-              <Text style={styles.buttonText}>Back to Main</Text>
-            </TouchableOpacity>  
+              onPress={checkEmail} >
+              Login
+            </Button>
           </ImageBackground>
         </SafeAreaView>
       );
-    };
+};
     
   const styles = StyleSheet.create({
     container: {

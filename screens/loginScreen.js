@@ -4,45 +4,32 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { ImageBackground, StyleSheet, View, Text, Image, Title, ScrollView, Vibration, TextInput, SafeAreaView, Button, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
+import {  ActivityIndicator, ImageBackground, StyleSheet, View, Text, Image, Title, ScrollView, Vibration, TextInput, SafeAreaView, Button, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
 import image from '../images/Autostadt.jpg';
 
 import axios from 'axios';
 
-// const APIKit = axios.create({
-//   baseURL: 'https://csl-restapiweek-9.azurewebsites.net/Employees',
-// });
-
-// export const setClientToken = token => {
-//   APIKit.interceptors.request.use(function(config) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//     return config;
-//   });
-// };
-
 const LoginScreen = ({navigation}) => {
 
     const [email, setEmail] = useState({ value: '', error: ''})
-    var emailemployee = email.value;
 
     const checkEmail =() => {
 
       let employee_email = email.value;
       if(employee_email == "") return alert("Email is required");
+      console.log(employee_email);
 
       return axios.get(`https://csl-restapiweek-9.azurewebsites.net/Employees/${employee_email}`)
         .then(function(response){
           const statusCode = response.status;
+          console.log(statusCode);
           if (statusCode == 200) {
-            navigation.reset({
-              index: 0,
-              routes: [{name: 'Home'}],
-            })
+            navigation.navigate("Home")
           }
         })
         .catch(function (error) {
-          console.log('This ${employee_email} is incorrect.');
-          alert('${employee_email} is unavailable, please enter a valid email.');
+          console.log(`This ${employee_email} is incorrect.`);
+          alert(`${employee_email} is unavailable, please enter a valid email.`);
         })
         .then(function(){
 
@@ -55,6 +42,8 @@ const LoginScreen = ({navigation}) => {
                   <Image style={styles.logo} source={require('../images/RE_transp.png')}/>
               </View>
               <TextInput
+                placeholder="Email..."
+                style={styles.input}
                 Label="Email"
                 returnKeyType="next"
                 value={email.value}
@@ -67,12 +56,12 @@ const LoginScreen = ({navigation}) => {
                 keyboardType="email-address"
                 required
               />
-            <Button 
+            <TouchableOpacity 
               mode="contained"
               style={styles.button}
               onPress={checkEmail} >
-              Login
-            </Button>
+              <Text style={styles.buttonText}>Log In</Text>
+            </TouchableOpacity >
           </ImageBackground>
         </SafeAreaView>
       );
@@ -110,16 +99,32 @@ const LoginScreen = ({navigation}) => {
         marginTop:20,
     },
     button: {
-        backgroundColor: '#3072e0',
-        padding: 20,
-        borderRadius: 10,
-        width: 200,
-        textAlign: 'center',
+      backgroundColor: '#3072e0',
+      borderColor: 'Black',
+      borderWidth: 2,
+      paddingHorizontal: 20,
+      paddingVertical: 5,
+      borderRadius: 5,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     buttonText: {
         fontSize: 20,
-        color: '#fff',
-        fontWeight: 'bold',
+        color: 'black',
+        // fontWeight: 'bold',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    input: {
+      backgroundColor: "white",
+      height: 40,
+      margin: 12,
+      borderWidth: 3,
+      borderColor: "#9e040a",
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      textAlign: 'center',
+      fontSize: 20,
     },
   });
   export default LoginScreen;

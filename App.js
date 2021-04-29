@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { ImageBackground, StyleSheet, View, Text, Image, ScrollView, Vibration, TextInput, SafeAreaView, Button, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
 import { setStatusBarStyle, StatusBar } from 'expo-status-bar';
 import image from './images/background.jpg';
@@ -28,7 +28,7 @@ const MyTheme = {
     background: '#fff',
     surface: '#fff',
     error: 'red',
-    onSurface: '@ffffff',
+    onSurface: '#ffffff',
     text: '#666',
   },
 };
@@ -36,7 +36,7 @@ const MyTheme = {
 const App = () => {
   setStatusBarStyle('dark-content')
   return (
-    <NavigationContainer theme={DarkTheme}>
+    <NavigationContainer >
     <PaperProvider theme={MyTheme}>
     <Stack.Navigator>
       <Stack.Screen
@@ -69,8 +69,37 @@ const App = () => {
           headerTitleAlign: 'center'
       }}
       />
-      <Stack.Screen name="Home" component={HomeScreen}/>
-      <Stack.Screen name="Status" component={StatusScreen}/>
+      <Stack.Screen 
+      name="Home" 
+      component={HomeScreen}
+      options={{ title: 'Elevators Page',
+      borderColor: 'black',
+      headerStyle:{
+        backgroundColor:'#9e040a'
+      },
+        headerTitleStyle:{
+        fontSize: 25,
+        fontWeight: 'bold',
+      },
+      headerLeft:null,
+      headerTitleAlign: 'center'
+      }}
+      />
+      <Stack.Screen 
+      name="Status" 
+      component={StatusScreen}
+      options={{ title: 'Status Page',
+      headerStyle:{
+        backgroundColor:'#9e040a'
+      },
+        headerTitleStyle:{
+        fontSize: 25,
+        fontWeight: 'bold',
+      },
+      headerLeft:null,
+      headerTitleAlign: 'center'
+      }}
+      />
     </Stack.Navigator>
     </PaperProvider>
     </NavigationContainer>
@@ -89,7 +118,7 @@ const MainScreen = ({navigation}) => {
           style={styles.button}
           onPress={() => navigation.navigate('Login')}
           >
-          <Text style={styles.buttonText}>LOG IN</Text>
+          <Text style={styles.buttonText}>Access to Employees Login Page</Text>
         </TouchableOpacity>  
       </ImageBackground>
     </SafeAreaView>
@@ -129,15 +158,19 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#3072e0',
-    padding: 20,
-    borderRadius: 10,
-    width: 150,
-    textAlign: 'center',
+    borderColor: 'Black',
+    borderWidth: 2,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   buttonText: {
     fontSize: 20,
-    color: 'white',
-    fontWeight: 'bold',
+    color: 'black',
+    justifyContent: 'center',
+    textAlign: 'center',
   },
 });
 

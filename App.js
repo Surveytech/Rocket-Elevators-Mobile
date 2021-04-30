@@ -119,7 +119,24 @@ const MainScreen = ({navigation}) => {
           onPress={() => navigation.navigate('Login')}
           >
           <Text style={styles.buttonText}>Access to Employees Login Page</Text>
-        </TouchableOpacity>  
+          
+        </TouchableOpacity> 
+        <View>
+          <TouchableOpacity 
+            mode="contained"
+            style={styles.button}
+            onPress={() => navigation.navigate("Home")} >
+            <Text style={styles.buttonText}>Auto login *DEV*</Text>
+          </TouchableOpacity >
+        </View> 
+        <View>
+          <TouchableOpacity 
+            mode="contained"
+            style={styles.button}
+            onPress={() => navigation.navigate('Status', {id: 265})} >
+            <Text style={styles.buttonText}>Go to elevator *DEV*</Text>
+          </TouchableOpacity >
+        </View> 
       </ImageBackground>
     </SafeAreaView>
   );

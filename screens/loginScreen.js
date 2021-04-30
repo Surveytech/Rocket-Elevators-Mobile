@@ -61,7 +61,7 @@ const LoginScreen = ({navigation}) => {
               style={styles.button}
               onPress={checkEmail} >
               <Text style={styles.buttonText}>Log In</Text>
-            </TouchableOpacity >
+            </TouchableOpacity >        
           </ImageBackground>
         </SafeAreaView>
       );

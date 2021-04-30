@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import {  ActivityIndicator, ImageBackground, StyleSheet, View, Text, Image, ScrollView, Vibration, SafeAreaView, Button, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
-import { TextInput, HelperText, List, Headline, Surface, Title} from 'react-native-paper';
+import {  ActivityIndicator, ImageBackground, StyleSheet, View, Text, Button, Image, ScrollView, Vibration, SafeAreaView, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
+import { TextInput, HelperText, List, Headline, Surface, Title, Appbar} from 'react-native-paper';
 import axios from 'axios';
 import image from '../images/background.jpg';
+import LoginScreen from './loginScreen';
+import HomeScreen from './homeScreen';
 
 const StatusScreen = ({navigation, route}) => {
  
   const id = route.params.id
-  // const status = route.params.status
+  const status = route.params.status
   const [isLoading, setLoading] = useState(true);
   const [showBtn, setShowBtn] = useState(false);
-  const [status, setStatus] = useState();
-
+  const [data, setData] = useState();
+  const [change, setChange] = useState();
+  const [update, setUpdate] = useState();
+  const [errorMSG, setError] = useState();
 
   useEffect(() => {
-    retrieveInfos();
-  },[])
-
-  const retrieveInfos  = () => {
-
     return axios.get(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/status`)
     .then((response)=>{
+      console.log("Elevator Id=" + id)
       console.log(response.data + " get return")
-      setStatus(response.data);
+      setData(response.data);
     })
     .catch((error) => {
       console.log(error)
@@ -32,60 +32,98 @@ const StatusScreen = ({navigation, route}) => {
     .finally(() => {
       setLoading(false)
     });
-
-  }
+  },[]);
 
   const updateStatus = () =>{
 
-    const test = 'online';
-
-
-    return axios.post(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/updatestatus`, test)
-      .then(response => setStatus(response.data.status));
-      .then((responseText) => {
-        alert(responseText)
-        setShowBtn(true)      
+    return axios.put(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/updatestatus?status=Online`)
+      .then((response) => {
+        setChange(response.status);
+        console.log("Return data =" + response.status)
+        setShowBtn(true);
+        alert(`Response code: ${response.status}`);
       })
       .catch((error) => {
           console.error(error);
-      });
-    };
+          setError(error.code);
+      })
+    }
 
-   //console.log(data)
-    return (
+   console.log(change)
+
+    // let errorMessage = (
+    // <View>
+    //   {errorMSG ? (
+    //     <Text>{errorMSG}</Text>
+    //   ) : (
+    //     <Text>
+    //       Error
+    //     </Text>
+    //   )}
+    // </View>);
+
+    // let responseCodeMessage = (
+    //   <View>
+    //     {change == 204? (
+    //       <View>
+    //         <Text style={styles.status,{backgroundColor: 'green'}}>
+    //           Online
+    //         </Text>
+    //       </View>
+    //     ) : (         
+    //       <View>
+    //         <Text style={styles.status,{backgroundColor: 'red'}}>
+    //         Inactive
+    //         </Text>
+    //       </View>
+    //     )}
+    //   </View>
+    // )
+
+  return (
 
        <SafeAreaView style={styles.container}>
         <ImageBackground source={image} style={styles.image}>
-
-        {isLoading ? <ActivityIndicator/> : (
-          <Text  style={[
-              styles.status,
-              elevator.status != "Online" ?
-              { backgroundColor: 'red' } 
-              : { backgroundColor: 'green' }
-                ]}>
-              {elevator.status}
-          </Text>
-          )}
-          <TouchableOpacity  
-            color="black"
-            icon="camera" 
-            mode="outlined" 
-            onPress={() => updateStatus()}>
-            <Text style={styles.buttonText}>End Task</Text>
-           End Task
-        </TouchableOpacity>
-
-        {showBtn? (
+          
+          <TouchableOpacity >
           <View>
-              <Button backgroundColor= "blue"  color="black"
-                icon="logout" 
-                mode="outlined" 
-                onPress={() => navigation.navigate('Login')}>
-                Go Back To Log In
-              </Button>  
-           </View>) : (<View/>)}
+           {isLoading ? ( <ActivityIndicator/> ) : ( <View>
+            {change == 204? (
+              <View>
+                <Text style={styles.button,{backgroundColor: 'green', color:'#fff', height:40, justifyContent:'center', textAlign:'center', fontSize:18, borderRadius:10}}>
+                  Online
+                </Text>
+              </View>
+            ) : (         
+              <View>
+                <Text style={{backgroundColor: 'red', color:'#fff', height:40, justifyContent:'center', textAlign:'center', fontSize:18, borderRadius:10}}>
+                Inactive
+                </Text>
+              </View>
+            )}
+            </View> )}
+          </View>
 
+            <Button 
+              title="Put Status Online"
+              color="#3072e0"
+              icon="camera" 
+              mode="contained" 
+              onPress={() => updateStatus()}/>
+
+          {showBtn? (
+            <View>
+                <Button 
+                mode="contained"
+                title="Go Back To Log In"
+                backgroundColor= "blue"  
+                color="black"
+                icon="logout" 
+                onPress={() => {navigation.navigate('Login')}}/>
+
+            </View>) : (<View/>)
+          }
+          </TouchableOpacity >
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Status Screen</Text>
             {id? (
@@ -96,15 +134,16 @@ const StatusScreen = ({navigation, route}) => {
               <TouchableOpacity 
                 mode="contained"
                 style={styles.button}
-                onPress={() => navigation.goBack()}>
+                onPress={() => navigation.navigate('Status')}>
                 <Text style={styles.buttonText}>Go back to Status Screen</Text>
               </TouchableOpacity >
           </View>
         </ImageBackground>
       </SafeAreaView>
     );
-};
+  }
   const styles = StyleSheet.create({
+    
     container: {
         flex: 1,
         flexDirection: 'column',

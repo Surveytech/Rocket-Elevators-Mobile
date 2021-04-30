@@ -41,7 +41,7 @@ const StatusScreen = ({navigation, route}) => {
 
 
     return axios.post(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/updatestatus`, test)
-      .then((response => setstatus(response.data.status));
+      .then(response => setStatus(response.data.status));
       .then((responseText) => {
         alert(responseText)
         setShowBtn(true)      
@@ -52,7 +52,7 @@ const StatusScreen = ({navigation, route}) => {
     };
 
    //console.log(data)
-  return (
+    return (
 
        <SafeAreaView style={styles.container}>
         <ImageBackground source={image} style={styles.image}>
@@ -79,7 +79,9 @@ const StatusScreen = ({navigation, route}) => {
         {showBtn? (
           <View>
               <Button backgroundColor= "blue"  color="black"
-                icon="logout" mode="outlined" onPress={() => props.navigation.navigate("Sign In")}>
+                icon="logout" 
+                mode="outlined" 
+                onPress={() => navigation.navigate('Login')}>
                 Go Back To Log In
               </Button>  
            </View>) : (<View/>)}
@@ -101,7 +103,7 @@ const StatusScreen = ({navigation, route}) => {
         </ImageBackground>
       </SafeAreaView>
     );
-  }
+};
   const styles = StyleSheet.create({
     container: {
         flex: 1,

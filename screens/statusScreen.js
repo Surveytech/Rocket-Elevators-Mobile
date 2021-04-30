@@ -8,10 +8,10 @@ import image from '../images/background.jpg';
 const StatusScreen = ({navigation, route}) => {
  
   const id = route.params.id
-  const status = route.params.status
+  // const status = route.params.status
   const [isLoading, setLoading] = useState(true);
-  const [ showBtn, setShowBtn] = useState(false);
-  const [elevator, setElevator] = useState();
+  const [showBtn, setShowBtn] = useState(false);
+  const [status, setStatus] = useState();
 
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const StatusScreen = ({navigation, route}) => {
 
     return axios.get(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/status`)
     .then((response)=>{
-      console.log(response.data)
-      setElevator(response.data);
+      console.log(response.data + " get return")
+      setStatus(response.data);
     })
     .catch((error) => {
       console.log(error)
@@ -37,9 +37,11 @@ const StatusScreen = ({navigation, route}) => {
 
   const updateStatus = () =>{
 
+    const test = 'online';
 
-    return axios.post(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/updatestatus?status=Online`)
-      .then((response) => response.text())
+
+    return axios.post(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/updatestatus`, test)
+      .then((response => setstatus(response.data.status));
       .then((responseText) => {
         alert(responseText)
         setShowBtn(true)      

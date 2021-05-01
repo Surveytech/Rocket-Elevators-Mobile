@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import {  ActivityIndicator, ImageBackground, StyleSheet, View, Text, Button, Image, ScrollView, Vibration, SafeAreaView, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
-import { TextInput, HelperText, List, Headline, Surface, Title, Appbar} from 'react-native-paper';
 import axios from 'axios';
 import image from '../images/background.jpg';
 
@@ -34,7 +32,7 @@ const StatusScreen = ({navigation, route}) => {
   },[]);
 
   const updateStatus = () =>{
-
+    // api call to change the status of the elevator
     return axios.put(`https://csl-restapiweek-9.azurewebsites.net/elevators/${id}/updatestatus?status=Online`)
       .then((response) => {
         setChange(response.status);
@@ -49,35 +47,6 @@ const StatusScreen = ({navigation, route}) => {
     }
 
    console.log(change)
-
-    // let errorMessage = (
-    // <View>
-    //   {errorMSG ? (
-    //     <Text>{errorMSG}</Text>
-    //   ) : (
-    //     <Text>
-    //       Error
-    //     </Text>
-    //   )}
-    // </View>);
-
-    // let responseCodeMessage = (
-    //   <View>
-    //     {change == 204? (
-    //       <View>
-    //         <Text style={styles.status,{backgroundColor: 'green'}}>
-    //           Online
-    //         </Text>
-    //       </View>
-    //     ) : (         
-    //       <View>
-    //         <Text style={styles.status,{backgroundColor: 'red'}}>
-    //         Inactive
-    //         </Text>
-    //       </View>
-    //     )}
-    //   </View>
-    // )
 
   return (
 
@@ -103,13 +72,6 @@ const StatusScreen = ({navigation, route}) => {
                 )}
                 </View> )}
               </View>
-
-              {/* <Button 
-                title="Put Status Online"
-                color="#3072e0"
-                icon="camera" 
-                mode="contained" 
-                onPress={() => updateStatus()}/> */}
 
               {showBtn? (
             
@@ -138,8 +100,7 @@ const StatusScreen = ({navigation, route}) => {
               <TouchableOpacity 
                 mode="contained"
                 style={styles.button}
-                // onPress={() => navigation.navigate('Home')}>
-                onPress={() => navigation.goBack()}>  
+                onPress={() => navigation.navigate('Home')}>
                 <Text style={styles.buttonText}>Go back to Elevators Screen</Text>
               </TouchableOpacity >
           </View>
@@ -159,7 +120,6 @@ const StatusScreen = ({navigation, route}) => {
       marginTop:50,
       color:'#fff', 
       justifyContent:'center', 
-      // textAlign:'center', 
       fontSize:20, 
       fontWeight: 'bold',
       borderRadius:10,

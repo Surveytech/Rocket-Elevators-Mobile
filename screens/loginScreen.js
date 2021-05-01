@@ -1,9 +1,6 @@
 
 import 'react-native-gesture-handler';
 import React, { useState, useEffect, useRef } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import {  ActivityIndicator, ImageBackground, StyleSheet, View, Text, Image, Title, ScrollView, Vibration, TextInput, SafeAreaView, Button, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
 import image from '../images/Autostadt.jpg';
 
@@ -19,6 +16,7 @@ const LoginScreen = ({navigation}) => {
       if(employee_email == "") return alert("Email is required");
       console.log(employee_email);
 
+      // api call for login check
       return axios.get(`https://csl-restapiweek-9.azurewebsites.net/Employees/${employee_email}`)
         .then(function(response){
           const statusCode = response.status;

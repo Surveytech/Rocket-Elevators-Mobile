@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { Dimensions, ImageBackground, StyleSheet, View, Text, Image, ScrollView, ActivityIndicator, Vibration, TextInput, SafeAreaView, Button, Appearance, TouchableOpacity, useColorScheme, Animated, Alert  } from 'react-native';
-import { setStatusBarStyle, StatusBar } from 'expo-status-bar';
 import image from '../images/Background-2.jpg';
 import axios from 'axios';
-import { set } from 'react-native-reanimated';
 
 const HomeScreen = ({navigation}) => {
 
@@ -20,7 +15,7 @@ const HomeScreen = ({navigation}) => {
     },[])
 
   const listElevators = () => {
-
+    // api call for inactive elevators
     return axios.get(`https://csl-restapiweek-9.azurewebsites.net/elevators/inactiveelevators`)
     .then((response)=>{
       console.log(response.data)

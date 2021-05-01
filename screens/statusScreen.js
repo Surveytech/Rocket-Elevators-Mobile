@@ -4,8 +4,7 @@ import {  ActivityIndicator, ImageBackground, StyleSheet, View, Text, Button, Im
 import { TextInput, HelperText, List, Headline, Surface, Title, Appbar} from 'react-native-paper';
 import axios from 'axios';
 import image from '../images/background.jpg';
-import LoginScreen from './loginScreen';
-import HomeScreen from './homeScreen';
+
 
 const StatusScreen = ({navigation, route}) => {
  
@@ -41,7 +40,7 @@ const StatusScreen = ({navigation, route}) => {
         setChange(response.status);
         console.log("Return data =" + response.status)
         setShowBtn(true);
-        alert(`Response code: ${response.status}`);
+        alert(`Response code: ${response.status} \nStatus change is a success`);
       })
       .catch((error) => {
           console.error(error);
@@ -82,74 +81,110 @@ const StatusScreen = ({navigation, route}) => {
 
   return (
 
-       <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ImageBackground source={image} style={styles.image}>
+        <ScrollView>
           
           <TouchableOpacity >
-          <View>
-           {isLoading ? ( <ActivityIndicator/> ) : ( <View>
-            {change == 204? (
               <View>
-                <Text style={styles.button,{backgroundColor: 'green', color:'#fff', height:40, justifyContent:'center', textAlign:'center', fontSize:18, borderRadius:10}}>
-                  Online
-                </Text>
+              {isLoading ? ( <ActivityIndicator/> ) : ( <View>
+                {change == 204? (
+                  <View>
+                    <Text style={styles.green}>
+                      Elevator {id} is now Online
+                    </Text>
+                  </View>
+                ) : (         
+                  <View>
+                    <Text style={styles.red}>
+                    Elevator {id} is Inactive
+                    </Text>
+                  </View>
+                )}
+                </View> )}
               </View>
-            ) : (         
-              <View>
-                <Text style={{backgroundColor: 'red', color:'#fff', height:40, justifyContent:'center', textAlign:'center', fontSize:18, borderRadius:10}}>
-                Inactive
-                </Text>
-              </View>
-            )}
-            </View> )}
-          </View>
 
-            <Button 
-              title="Put Status Online"
-              color="#3072e0"
-              icon="camera" 
-              mode="contained" 
-              onPress={() => updateStatus()}/>
+              {/* <Button 
+                title="Put Status Online"
+                color="#3072e0"
+                icon="camera" 
+                mode="contained" 
+                onPress={() => updateStatus()}/> */}
 
-          {showBtn? (
-            <View>
-                <Button 
-                mode="contained"
-                title="Go Back To Log In"
-                backgroundColor= "blue"  
-                color="black"
-                icon="logout" 
-                onPress={() => {navigation.navigate('Login')}}/>
+              {showBtn? (
+            
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <TouchableOpacity 
+                      mode="contained"
+                      style={styles.button}
+                      onPress={() => navigation.navigate('Login')}>
+                      <Text style={styles.buttonText}>Logout</Text>
+                    </TouchableOpacity >
+                </View>)
 
-            </View>) : (<View/>)
-          }
+                : (
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}> 
+                    <TouchableOpacity 
+                        mode="contained"
+                        style={styles.button}
+                        onPress={() => updateStatus()}>
+                        <Text style={styles.buttonText}>Put Status Online</Text>
+                    </TouchableOpacity > 
+      
+                </View>)
+              }
           </TouchableOpacity >
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Status Screen</Text>
-            {id? (
-              <Text>The id is: {id} and the actual status is {status}</Text>
-            ):(
-              <Text> Didn't work </Text>)}
-
               <TouchableOpacity 
                 mode="contained"
                 style={styles.button}
-                onPress={() => navigation.navigate('Status')}>
-                <Text style={styles.buttonText}>Go back to Status Screen</Text>
+                // onPress={() => navigation.navigate('Home')}>
+                onPress={() => navigation.goBack()}>  
+                <Text style={styles.buttonText}>Go back to Elevators Screen</Text>
               </TouchableOpacity >
           </View>
+          </ScrollView>
         </ImageBackground>
       </SafeAreaView>
     );
   }
   const styles = StyleSheet.create({
-    
+    red: {
+      backgroundColor: 'red',
+      textAlign: 'center',
+      flexDirection: 'row',
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      marginVertical: 10,
+      marginTop:50,
+      color:'#fff', 
+      justifyContent:'center', 
+      // textAlign:'center', 
+      fontSize:20, 
+      fontWeight: 'bold',
+      borderRadius:10,
+    },
+    green: {
+      backgroundColor: 'green',
+      textAlign: 'center',
+      flexDirection: 'row',
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      marginVertical: 10,
+      marginTop:50,
+      color:'#fff', 
+      justifyContent:'center', 
+      // textAlign:'center', 
+      fontSize:20, 
+      fontWeight: 'bold',
+      borderRadius:10,
+    },
     container: {
         flex: 1,
         flexDirection: 'column',
     },
     title:{
-        color: '#fff',
+        color: '#000000',
         fontSize: 25,
         fontWeight: 'bold',
     },
@@ -184,18 +219,20 @@ const StatusScreen = ({navigation, route}) => {
     },
     button: {
       backgroundColor: '#3072e0',
-      borderColor: 'Black',
+      borderColor: '#000000',
       borderWidth: 2,
       paddingHorizontal: 20,
       paddingVertical: 5,
+      marginTop:20,
+      marginBottom:20,
       borderRadius: 5,
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
     buttonText: {
       fontSize: 20,
-      color: 'black',
-      // fontWeight: 'bold',
+      color: 'white',
+      fontWeight: 'bold',
       justifyContent: 'center',
       textAlign: 'center',
     },

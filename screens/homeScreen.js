@@ -37,18 +37,17 @@ const HomeScreen = ({navigation}) => {
  
           <SafeAreaView style={styles.container}>
           <ImageBackground source={image} style={styles.image}>
-            <View>
+            <View style={{height: (windownHeight*0.1), marginTop:30}}>
               <Image style={styles.logo} source={require('../images/RE_transp.png')}/>
             </View>
 
-            <View>
-              <ScrollView style={{borderColor:'black', borderWidth: 2, backgroundColor:'#666', width: (windownWidth*0.3), height: (windownHeight*0.5)}}>
+            <View style={{width: (windownWidth*0.7), height: (windownHeight*0.6)}}>
+              <ScrollView style={{borderColor:'black', borderWidth: 2, backgroundColor:'#666'}}>
                 {elevators? (
                   <View>
                       {elevators && elevators.map((elevator) => {
                         const id = `ID: ${elevator.id}`
                         const serialNumber = `${elevator.serialNumber}`
-                        const description = `${elevator.notes}`
                         return (
                           <TouchableOpacity
                           onPress={() => {navigation.navigate('Status', {id: elevator.id})}}>
@@ -60,14 +59,17 @@ const HomeScreen = ({navigation}) => {
                 ) : ( <View><Text>LOADING</Text></View> )}
               </ScrollView>
             </View>
-            <View style={{padding:30}}></View>
-            <TouchableOpacity 
-              // title='Log in'
-              style={styles.button}
-              onPress={() => navigation.navigate('Login')}
-            >
-              <Text style={styles.buttonText}>Back to the Login Page</Text>
-            </TouchableOpacity>  
+            {/* <View style={{padding:30}}></View> */}
+            <View style={{height: (windownHeight*0.05)}}/>
+            <View style={{height: (windownHeight*0.1)}}>
+              <TouchableOpacity 
+                // title='Log in'
+                style={styles.button}
+                onPress={() => navigation.navigate('Login')}
+              >
+                <Text style={styles.buttonText}>Back to the Login Page</Text>
+              </TouchableOpacity>  
+            </View>
           </ImageBackground>
         </SafeAreaView>
     );
@@ -76,11 +78,11 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-evenly'
+    // flexDirection: 'column',
+    justifyContent: 'space-between'
   },
   title:{
-    color: '#fff',
+    color: '#000000',
     fontSize: 25,
     fontWeight: 'bold',
   },
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: 'absolute',
-    top:-150,
+    top:-60,
     left:-125,
     width:250,
     height:100,
@@ -107,18 +109,18 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#3072e0',
-    borderColor: 'Black',
+    borderColor: '#000000',
     borderWidth: 2,
     paddingHorizontal: 20,
     paddingVertical: 5,
     borderRadius: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
   },
 
   buttonText: {
     fontSize: 20,
-    color: 'black',
+    color: '#fff',
     justifyContent: 'center',
     textAlign: 'center',
   },

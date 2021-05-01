@@ -121,22 +121,6 @@ const MainScreen = ({navigation}) => {
           <Text style={styles.buttonText}>Access to Employees Login Page</Text>
           
         </TouchableOpacity> 
-        <View>
-          <TouchableOpacity 
-            mode="contained"
-            style={styles.button}
-            onPress={() => navigation.navigate("Home")} >
-            <Text style={styles.buttonText}>Auto login *DEV*</Text>
-          </TouchableOpacity >
-        </View> 
-        <View>
-          <TouchableOpacity 
-            mode="contained"
-            style={styles.button}
-            onPress={() => navigation.navigate('Status', {id: 265})} >
-            <Text style={styles.buttonText}>Go to elevator *DEV*</Text>
-          </TouchableOpacity >
-        </View> 
       </ImageBackground>
     </SafeAreaView>
   );
@@ -148,7 +132,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   title:{
-    color: '#fff',
+    color: '#000000',
     fontSize: 25,
     fontWeight: 'bold',
   },
@@ -175,7 +159,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#3072e0',
-    borderColor: 'Black',
+    borderColor: '#000000',
     borderWidth: 2,
     paddingHorizontal: 20,
     paddingVertical: 5,
@@ -185,7 +169,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: 'black',
+    color: 'white',
+    fontWeight: 'bold',
     justifyContent: 'center',
     textAlign: 'center',
   },

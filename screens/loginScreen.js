@@ -73,7 +73,7 @@ const LoginScreen = ({navigation}) => {
         flexDirection: 'column',
     },
     title:{
-        color: '#fff',
+        color: '#000000',
         fontSize: 25,
         fontWeight: 'bold',
     },
@@ -100,7 +100,7 @@ const LoginScreen = ({navigation}) => {
     },
     button: {
       backgroundColor: '#3072e0',
-      borderColor: 'Black',
+      borderColor: '#000000',
       borderWidth: 2,
       paddingHorizontal: 20,
       paddingVertical: 5,
@@ -109,11 +109,11 @@ const LoginScreen = ({navigation}) => {
       justifyContent: 'space-between',
     },
     buttonText: {
-        fontSize: 20,
-        color: 'black',
-        // fontWeight: 'bold',
-        justifyContent: 'center',
-        textAlign: 'center',
+      fontSize: 20,
+      color: 'white',
+      fontWeight: 'bold',
+      justifyContent: 'center',
+      textAlign: 'center',
     },
     input: {
       backgroundColor: "white",
